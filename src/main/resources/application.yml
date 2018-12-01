@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: spring-cloud-eureka-client
+server:
+  port: 8080
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    instanceId: ${spring.application.name}:${server.port}
+  info:
+    app:
+      name: Eureka-Demo
