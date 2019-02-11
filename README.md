@@ -7,10 +7,10 @@ Build the service and run it
 mvn clean install
 ```
 * Run the jar
- - App will be launched on **8090** port you can change it as per your need.
-```
-java -jar sample-java-service-0.0.1-SNAPSHOT.jar --server.port=8090
-```
+  - App will be launched on **8090** port you can change it as per your need.
+  ```
+  java -jar sample-java-service-0.0.1-SNAPSHOT.jar --server.port=8090
+  ```
 
 * Test the content using your favourite browser and call the below rest endpoint
 ```
