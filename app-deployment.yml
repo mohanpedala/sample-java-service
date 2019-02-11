@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-one-metadata-name
+  labels:
+    app: app-one-label
+
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: app-one-label
+
+  template:
+    metadata:
+      labels:
+        app: app-one-label
+
+    spec:
+      containers:
+        - name: app-one-container
+          image: 335530171489.dkr.ecr.us-west-2.amazonaws.com/app1:v2
+          ports:
+          - containerPort: 80
