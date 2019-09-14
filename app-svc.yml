@@ -4,11 +4,12 @@ metadata:
   name: app-one-metadata-name
   labels:
     app: app-one-label
-
-
 spec:
+  type: NodePort
   ports:
-    - port: 3000
+  - nodePort: 30000
+    port: 8080
+    targetPort: 8080
+    protocol: TCP
   selector:
-    app: app-one
-  type: LoadBalancer
+    app: app-one-label

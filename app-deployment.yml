@@ -19,6 +19,6 @@ spec:
     spec:
       containers:
         - name: app-one-container
-          image: 335530171489.dkr.ecr.us-west-2.amazonaws.com/app1:v2
+          image: sample-java-app:v1
           ports:
-          - containerPort: 80
+          - containerPort: 8080
