@@ -95,3 +95,44 @@ Build the service and run it
     kubectl delete -f app-deployment.yml
     kubectl delete -f app-svc.yml
     ```
+
+#### K8s secret creation to access dockerhub.
+* First Create access token in Dockerhub. Click [here](https://blog.docker.com/2019/09/docker-hub-new-personal-access-tokens/) for documentation.
+* On you cluster run the below command
+
+    ```
+    kubectl create secret docker-registry --dry-run=true $secret_name \
+    --docker-server=<DOCKER_REGISTRY_SERVER> \
+    --docker-username=<DOCKER_USER> \
+    --docker-password=<DOCKER_PASSWORD> \
+    --docker-email=<DOCKER_EMAIL> -o yaml
+    ```
+    - Explanation:
+        ```
+        <your-registry-server> is your Private Docker Registry FQDN. (https://index.docker.io/v1/ for DockerHub)
+        <your-name> is your Docker username.
+        <your-pword> is your Docker password.
+        <your-email> is your Docker email.
+        ```
+* Add the below spec under the `containers spec` in the app-deployment.yml
+    ```
+    ---
+    spec:
+      containers:
+        - name: app-one-container
+          image: phaneindra/sample-java-app:latest
+          ports:
+          - containerPort: 8080
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "250m"
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+      
+      imagePullSecrets:
+      - name: docker-hub
+
+    ---
+    ```
