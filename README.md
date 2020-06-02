@@ -44,7 +44,7 @@ Build the service and run it
     ```
 * Deploy service through a NodePort. Click here to know about [NodePort](https://kubernetes.io/docs/concepts/services-networking/service/)
     ```
-    kubectl create 0f app-svc.yml
+    kubectl create -f app-svc.yml
     ```
 * Check the resorce using'
     ```
