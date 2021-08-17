@@ -1,7 +1,12 @@
 pipeline {
+    environment {
+      imagename = "phaneindra/sample-java-app"
+      registryCredential = 'docker'
+      dockerImage = ''
+    }
     agent {
       kubernetes {
-        label 'ci-app'
+        inheritFrom 'ci-app'
         idleMinutes 5
         yamlFile './pipeline/build-pod.yaml'
         defaultContainer 'maven'      
@@ -13,11 +18,21 @@ pipeline {
           sh "mvn clean package"
         }
       }
-      stage('Build Docker Image') {
-        steps {
-          container('docker') {
-            sh "docker build -t phaneindra/sample-java-app:v3 ."
-            sh "docker push phaneindra/sample-java-app:v3"
+      stage('Building image') {
+        steps{
+          script {
+            dockerImage = docker.build imagename
+          }
+        }
+      }
+      stage('Deploy Image') {
+        steps{
+          script {
+            docker.withRegistry( '', registryCredential ) {
+              dockerImage.push("$BUILD_NUMBER")
+              dockerImage.push('latest')
+
+            }
           }
         }
       }
