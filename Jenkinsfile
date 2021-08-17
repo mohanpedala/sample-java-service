@@ -18,10 +18,12 @@ pipeline {
           sh "mvn clean package"
         }
       }
-      stage('Building image') {
+      stage('Build docker image') {
         steps{
           script {
-            dockerImage = docker.build(imagename)
+            sh 'echo "starting docker build"' 
+            dockerImage = docker.build("phaneindra/sample-java-app")
+            sh 'echo "Image build completed"'
           }
         }
       }
