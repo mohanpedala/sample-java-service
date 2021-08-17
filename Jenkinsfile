@@ -19,11 +19,13 @@ pipeline {
         }
       }
       stage('Build docker image') {
-        steps{
-          script {
-            sh 'echo "starting docker build"' 
-            dockerImage = docker.build("phaneindra/sample-java-app")
-            sh 'echo "Image build completed"'
+        steps {
+          container('docker') {
+            script {
+              sh 'echo "starting docker build"' 
+              dockerImage = docker.build imagename
+              sh 'echo "Image build completed"'
+            }
           }
         }
       }
