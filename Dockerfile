@@ -1,5 +1,6 @@
 FROM openjdk:8-jre-alpine
-MAINTAINER Mohan.edala@binarybutter.com
+
+LABEL org.opencontainers.image.authors="Mohan.edala@binarybutter.com"
 
 WORKDIR /app
 
