@@ -8,8 +8,7 @@ spec:
   containers:
   - name: maven
     image: maven:3.5.4-jdk-8-slim
-    command:
-      - "tail -f /dev/null"
+    command: ["tail", "-f", "/dev/null"]
     imagePullPolicy: Always
     resources:
       requests:
@@ -19,7 +18,7 @@ spec:
         memory: "1Gi"
         cpu: "1024m" 
   - name: docker
-    image: docker:18.06.1
+    image: docker:20.10.7
     command: ["tail", "-f", "/dev/null"]
     imagePullPolicy: Always
     resources:
@@ -32,3 +31,7 @@ spec:
     volumeMounts:
       - name: docker
         mountPath: /var/run/docker.sock # We use the k8s host docker engine
+  volumes:
+    - name: docker
+      hostPath:
+        path: /var/run/docker.sock
